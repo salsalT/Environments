@@ -1,0 +1,25 @@
+import base64
+import face_recognition
+
+#load image files
+sample_file = face_recognition.load_image_file(
+    "enviro/images/sample.jpeg")
+test_file = face_recognition.load_image_file(
+    "enviro/images/test.jpeg")
+
+#encoding image files
+sample_face_encoding =[ 
+    face_recognition.face_encodings(sample_file)[0]]
+test_image_encoding = face_recognition.face_encodings(
+    test_file)[0]
+
+#'similarity between two encoded images
+face_distances = face_recognition.face_distance(
+    sample_face_encoding,
+     test_image_encoding)
+
+#displaying results and stating the chosen tolerance
+for i, face_distance in enumerate(face_distances):
+    print("The test image has a difference of {:.2} from sample image ".format(face_distance, i))
+    print("With tolerance of 0.6, they are the same person is :{}".format(face_distance < 0.6))
+    
